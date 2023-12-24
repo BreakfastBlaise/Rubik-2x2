@@ -1,0 +1,186 @@
+<canvas id="canvas" height = "600" width = "600">
+</canvas>
+<script>
+    const canvas = document.getElementById("canvas")
+    const paint = canvas.getContext("2d")
+    const blue = "rgb(10, 10, 200)"
+    const red = "rgb(200, 10, 10)"
+    const green = "rgb(10, 200, 10)"
+    const yellow = "rgb(200, 200, 10)"
+    const orange = "rgb(255, 100, 10)"
+    const whiteish = "rgb(200, 200, 200)"
+
+const height = 75
+const width = 75
+
+const stickerSheet = [whiteish,whiteish,whiteish,whiteish,orange,orange,orange,orange,green,green,green,green,red,red,red,red,blue,blue,blue,blue,yellow,yellow,yellow,yellow]
+
+function U(){
+const memoryA = stickerSheet[8]
+const memoryB = stickerSheet[9]
+const memoryC = stickerSheet[2]
+
+stickerSheet[8]=stickerSheet[12]
+stickerSheet[9]=stickerSheet[13]
+stickerSheet[12]=stickerSheet[16]
+stickerSheet[13]=stickerSheet[17]
+stickerSheet[16]=stickerSheet[4]
+stickerSheet[17]=stickerSheet[5]
+stickerSheet[4]=memoryA
+stickerSheet[5]=memoryB
+stickerSheet[2]=stickerSheet[1]
+stickerSheet[1]=stickerSheet[0]
+stickerSheet[0]=stickerSheet[3]
+stickerSheet[3]=memoryC
+}
+
+function iU(){
+U();U();U()
+}
+
+function cycle(coord1,coord2,coord3,coord4){
+    const memory = stickerSheet[coord4]
+    stickerSheet[coord4]=stickerSheet[coord3]
+    stickerSheet[coord3]=stickerSheet[coord2]
+    stickerSheet[coord2]=stickerSheet[coord1]
+    stickerSheet[coord1]=memory
+}
+
+function R(){
+cycle(9,1,19,21)
+cycle(10,2,16,22)
+cycle(12,13,14,15)
+}
+
+function iR(){
+R();R();R()    
+}
+
+function L(){
+    cycle(8,20,18,0)
+    cycle(11,23,17,3)
+    cycle(4,5,6,7)
+}
+
+function iL(){
+    L();L();L()
+}
+
+function F(){
+    cycle(3,12,21,6)
+    cycle(2,15,20,5)
+    cycle(8,9,10,11)
+}
+
+function iF(){
+    F();F();F()
+}
+
+
+function D(){
+    cycle(11,15,19,7)
+    cycle(10,14,18,6)
+    cycle(20,21,22,23)
+}
+
+function iD(){
+    D();D();D()
+}
+
+function B(){
+    cycle(0,7,22,13)
+    cycle(1,4,23,14)
+    cycle(16,17,18,19)
+}
+
+function iB(){
+    B();B();B()
+}
+
+    document.addEventListener("keydown",onKeyDown)
+
+    function onKeyDown(event) {
+        if (event.key.toLowerCase()==='f') {
+            if (!event.shiftKey) {
+                F()
+            } else{
+                iF()
+            }
+        }
+
+        if (event.key.toLowerCase()==='b') {
+            if (!event.shiftKey) {
+                B()
+            } else{
+                iB()
+            }
+        }
+        
+        if (event.key.toLowerCase()==='r') {
+            if (!event.shiftKey) {
+                R()
+            } else{
+                iR()
+            }
+        }
+
+        if (event.key.toLowerCase()==='l') {
+            if (!event.shiftKey) {
+                L()
+            } else{
+                iL()
+            }
+        }
+
+        if (event.key.toLowerCase()==='u') {
+            if (!event.shiftKey) {
+                U()
+            } else{
+                iU()
+            }
+        }
+
+        if (event.key.toLowerCase()==='d') {
+            if (!event.shiftKey) {
+                D()
+            } else{
+                iD()
+            }
+        }
+        
+
+        drawFace(1,0,0)
+        drawFace(0,1,4)
+        drawFace(1,1,8)
+        drawFace(2,1,12)
+        drawFace(3,1,16)
+        drawFace(1,2,20)
+    }
+
+    drawFace(1,0,0)
+        drawFace(0,1,4)
+        drawFace(1,1,8)
+        drawFace(2,1,12)
+        drawFace(3,1,16)
+        drawFace(1,2,20)
+
+    //function drawCube()
+
+    function drawSticker(column, row, colour)
+    {paint.fillStyle = colour
+    paint.fillRect
+    (width*column,
+    height*row,
+    width-5,
+    height-5)
+    }
+
+    function drawFace(x,y,coordinate)
+    {
+        
+    drawSticker(2*x,2*y,stickerSheet[coordinate])
+    drawSticker(2*x+1,2*y,stickerSheet[coordinate+1])
+    drawSticker(2*x+1,2*y+1,stickerSheet[coordinate+2])
+    drawSticker(2*x,2*y+1,stickerSheet[coordinate+3])
+    }
+</script> 
